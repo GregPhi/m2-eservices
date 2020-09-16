@@ -1,0 +1,16 @@
+-------------------------------------------------------------------------------
+Test set: DispatcherServletTest
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 1, Errors: 2, Skipped: 0, Time elapsed: 0.023 s <<< FAILURE! - in DispatcherServletTest
+registerController_throwsIllegalArgumentException_forNonControllerClasses  Time elapsed: 0.005 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
+	at DispatcherServletTest.registerController_throwsIllegalArgumentException_forNonControllerClasses(DispatcherServletTest.java:15)
+
+registerHelloController_shouldWorkCorrectly  Time elapsed: 0.002 s  <<< ERROR!
+java.lang.NullPointerException
+	at DispatcherServletTest.registerHelloController_shouldWorkCorrectly(DispatcherServletTest.java:57)
+
+registerController_shouldRegisterCorrectyMethods  Time elapsed: 0.003 s  <<< ERROR!
+java.lang.NullPointerException
+	at DispatcherServletTest.registerController_shouldRegisterCorrectyMethods(DispatcherServletTest.java:47)
+

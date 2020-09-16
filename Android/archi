@@ -1,0 +1,15 @@
+
+
+MVP -> presenter ne connait pas la vue
+sait les actions possibles mais ne sait pas quelles actions
+intérergisse au travers interface
+test unitairement persenter => création mock de l'interface
+presenter reçoit l'info dit à l'interface fais sa
+
+MVVM -> tjrs vu intercèpe action utilisateur
+=> le dit au viewmodel
+viewmodel gère logique , appel pour avoir infos ; ne connait pas la vue
+mais notifie tous ses listeners le chgt
+la view écoute les changements et mets à jour
+=> MAJ dynamique
+
