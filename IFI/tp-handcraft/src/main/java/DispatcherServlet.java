@@ -1,4 +1,5 @@
 import annotation.Controller;
+import annotation.RequestMapping;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -35,12 +36,13 @@ public class DispatcherServlet extends HttpServlet {
      * @param controllerClass the controller to scan
      */
     protected void registerController(Class controllerClass) throws IllegalArgumentException{
-        /*System.out.println("Analysing class " + controllerClass.getName());
-        System.out.println("getAnnotatedInterfaces"+controllerClass.getAnnotatedInterfaces());
-        System.out.println("getAnnotations"+controllerClass.getAnnotations());
-        System.out.println("getDeclaredAnnotation"+controllerClass.getDeclaredAnnotation(Controller.class));*/
         if(null == controllerClass.getAnnotation(Controller.class)){
             throw new IllegalArgumentException();
+        }else{
+            Method[] methods = controllerClass.getMethods();
+            for(Method m : methods){
+                registerMethod(m);
+            }
         }
     }
 
@@ -53,8 +55,15 @@ public class DispatcherServlet extends HttpServlet {
      * @param method the method to scan
      */
     protected void registerMethod(Method method) {
-        System.out.println("Registering method " + method.getName());
-        // TODO
+        RequestMapping annotat = method.getDeclaredAnnotation(RequestMapping.class);
+        if(annotat != null){
+            String uri = annotat.uri();
+            if(uri != null){
+                if(!method.getReturnType().equals(Void.TYPE)) {
+                    this.uriMappings.put(uri,method);
+                }
+            }
+        }
     }
 
     protected Map<String, Method> getMappings(){

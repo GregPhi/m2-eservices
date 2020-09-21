@@ -35,7 +35,7 @@ class DispatcherServletTest {
 
         assertTrue(servlet.getMappings().isEmpty());
     }
-/*
+
     @Test
     void registerController_shouldRegisterCorrectyMethods(){
         var servlet = new DispatcherServlet();
@@ -58,7 +58,7 @@ class DispatcherServletTest {
         assertEquals("sayGoodBye", servlet.getMappingForUri("/bye").getName());
         assertEquals("explode", servlet.getMappingForUri("/boum").getName());
     }
- */
+
 }
 
 
