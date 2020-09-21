@@ -35,11 +35,12 @@ public class DispatcherServlet extends HttpServlet {
      * @param controllerClass the controller to scan
      */
     protected void registerController(Class controllerClass) throws IllegalArgumentException{
-        System.out.println("Analysing class " + controllerClass.getName());
-        try{
-
-        }catch (IllegalArgumentException e){
-            e.printStackTrace();
+        /*System.out.println("Analysing class " + controllerClass.getName());
+        System.out.println("getAnnotatedInterfaces"+controllerClass.getAnnotatedInterfaces());
+        System.out.println("getAnnotations"+controllerClass.getAnnotations());
+        System.out.println("getDeclaredAnnotation"+controllerClass.getDeclaredAnnotation(Controller.class));*/
+        if(null == controllerClass.getAnnotation(Controller.class)){
+            throw new IllegalArgumentException();
         }
     }
 
