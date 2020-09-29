@@ -1,5 +1,6 @@
 import annotation.Controller;
 import annotation.RequestMapping;
+import com.ustl.ifi.controller.PokemonTypeController;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -43,19 +45,23 @@ public class DispatcherServlet extends HttpServlet {
         String uri = req.getRequestURI();
         Method method = this.uriMappings.get(uri);
         if(method == null){
-            req.setAttribute("status",404);
-            req.setAttribute("error","no mapping found for request uri "+uri);
-            this.getServletContext().getRequestDispatcher("").forward(req,resp);
+            resp.sendError(404,"no mapping found for request uri "+uri);
         }else{
             Enumeration<String> attributes = req.getAttributeNames();
+            try {
+                Object o = method.invoke(attributes);
+                System.out.println(o.toString());
+            } catch (IllegalAccessException | InvocationTargetException e) {
+                resp.sendError(500,"exception when calling method someThrowingMethod : some exception message");
+            }
         }
-
     }
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
         // on enregistre notre controller au démarrage de la servlet
+        //this.registerController(PokemonTypeController.class);
         this.registerController(HelloController.class);
     }
 

@@ -77,7 +77,7 @@ class DispatcherServletTest {
 
         verify(resp).sendError(404, "no mapping found for request uri /test");
     }
-/*
+
     @Test
     void doGet_shouldReturn500WithMessage_whenMethodThrowsException() throws IOException, ServletException {
         var servlet = new DispatcherServlet();
@@ -147,7 +147,6 @@ class DispatcherServletTest {
 
         verify(printWriter).print("Hello World !");
     }
- */
 }
 
 
@@ -170,7 +169,7 @@ class SomeControllerClassWithAVoidMethod{
 @Controller
 class SomeControllerClass {
     @RequestMapping(uri="/test")
-    public String someGoodMethod(){
+    public static String someGoodMethod(){
         return "Hello";
     }
 
