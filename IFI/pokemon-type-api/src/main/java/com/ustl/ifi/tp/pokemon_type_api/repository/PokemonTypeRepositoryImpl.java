@@ -1,12 +1,9 @@
-package com.ustl.ifi.repository;
+package com.ustl.ifi.tp.pokemon_type_api.repository;
 
-import antlr.collections.List;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.CollectionType;
-import com.ustl.ifi.bo.PokemonType;
-import org.springframework.util.ResourceUtils;
+import com.ustl.ifi.tp.pokemon_type_api.bo.PokemonType;
+import org.springframework.stereotype.Repository;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,29 +11,29 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class PokemonTypeRepository {
+@Repository
+public class PokemonTypeRepositoryImpl implements PokemonTypeRepository {
 
     private List<PokemonType> pokemons;
 
-    public PokemonTypeRepository() {
+    public PokemonTypeRepositoryImpl() {
         try {
             var objectMapper = new ObjectMapper();
             CollectionType listType = objectMapper.getTypeFactory()
                     .constructCollectionType(ArrayList.class, PokemonType.class);
             List<PokemonType> ts = objectMapper.readValue(new File("./src/main/ressources/pokemons.json"), listType);
-
-            /*
-            var pokemonsStream = this.getClass().getResourceAsStream("/pokemons.json");
-            objectMapper.configure(JsonParser.Feature.AUTO_CLOSE_SOURCE,true);
+            this.pokemons = ts;
+            /*var pokemonsStream = this.getClass().getResourceAsStream("/pokemons.json");
+            var objectMapper = new ObjectMapper();
             var pokemonsArray = objectMapper.readValue(pokemonsStream, PokemonType[].class);
             this.pokemons = Arrays.asList(pokemonsArray);*/
-            this.pokemons = ts;
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public PokemonType findPokemonById(int id) {
+    @Override
+    public PokemonType findPokemonTypeById(int id) {
         System.out.println("Loading Pokemon information for Pokemon id " + id);
         for(PokemonType pokemon : this.pokemons){
             if(id == pokemon.getId()){
@@ -46,7 +43,8 @@ public class PokemonTypeRepository {
         return null;
     }
 
-    public PokemonType findPokemonByName(String name) {
+    @Override
+    public PokemonType findPokemonTypeByName(String name) {
         System.out.println("Loading Pokemon information for Pokemon name " + name);
         for(PokemonType pokemon : this.pokemons){
             if(name.equals(pokemon.getName())){
@@ -56,7 +54,8 @@ public class PokemonTypeRepository {
         return null;
     }
 
-    public List<PokemonType> findAllPokemon() {
+    @Override
+    public List<PokemonType> findAllPokemonType() {
         return this.pokemons;
     }
 }
