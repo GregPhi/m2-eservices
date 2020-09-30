@@ -16,7 +16,7 @@ class PokemonTypeController {
         this.service = service;
     }
 
-    @GetMapping(path="/{id}")
+    @GetMapping("/{id}")
     PokemonType getPokemonTypeFromId(@PathVariable int id){
         return this.service.getPokemonType(id);
     }
